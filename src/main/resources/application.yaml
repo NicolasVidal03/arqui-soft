@@ -1,0 +1,17 @@
+server:
+    port: 9090
+# api:
+#   responseCodes:
+#     ok.description : OK
+#     badRequest.description: Bad Request, invalid format of the request. See response message for more information
+#     internalServer.description: Internal Server Error. Seee response message for more information
+springdoc:
+    swagger-ui.path: /openapi/swagger-ui.html
+    api-docs.path: /openapi/v3/api-docs
+    packagesToScan: com.ucb.demo
+    pathsToMatch: /**
+sentry:
+  dsn: https://6da38648fa6babf3a515b2db230bf617@o4507101969776640.ingest.us.sentry.io/4507220553564160
+  # Set traces-sample-rate to 1.0 to capture 100% of transactions for performance monitoring.
+  # We recommend adjusting this value in production.
+  traces-sample-rate: 1.0

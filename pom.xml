@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>org.springframework.boot</groupId>
+		<artifactId>spring-boot-starter-parent</artifactId>
+		<version>3.2.5</version>
+		<relativePath/> <!-- lookup parent from repository -->
+	</parent>
+	<groupId>com.ucb</groupId>
+	<artifactId>demo</artifactId>
+	<version>0.0.1-SNAPSHOT</version>
+	<name>demo</name>
+	<description>Demo project for Spring Boot</description>
+	<properties>
+		<java.version>21</java.version>
+	</properties>
+	
+	<dependencies>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-web</artifactId>
+		</dependency>
+
+		<dependency> 
+			<groupId>org.springframework.boot</groupId> 
+			<artifactId>spring-boot-starter-validation</artifactId> 
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-test</artifactId>
+			<scope>test</scope>
+		</dependency>
+
+		<dependency>
+      		<groupId>org.springdoc</groupId>
+      		<artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
+      		<version>2.2.0</version>
+  		</dependency>
+		<!-- https://mvnrepository.com/artifact/org.projectlombok/lombok -->
+		<dependency>
+			<groupId>org.projectlombok</groupId>
+			<artifactId>lombok</artifactId>
+			<version>1.18.32</version>
+			<scope>provided</scope>
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/org.junit.jupiter/junit-jupiter-engine -->
+		<dependency>
+			<groupId>org.junit.jupiter</groupId>
+			<artifactId>junit-jupiter-engine</artifactId>
+			<version>5.10.2</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>com.networknt</groupId>
+			<artifactId>json-schema-validator</artifactId>
+			<version>1.4.0</version>
+		</dependency>
+		<dependency>
+			<groupId>com.newrelic.agent.java</groupId>
+			<artifactId>newrelic-java</artifactId>
+			<version>8.11.1</version>
+			<scope>provided</scope>
+			<type>zip</type>
+		</dependency>
+		
+	</dependencies>
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-maven-plugin</artifactId>
+			</plugin>
+
+				<!-- Unzip New Relic Java agent into target/ -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-dependency-plugin</artifactId>
+				<version>3.1.1</version>
+				<executions>
+					<execution>
+					<id>unpack-newrelic</id>
+					<phase>package</phase>
+					<goals>
+						<goal>unpack-dependencies</goal>
+					</goals>
+					<configuration>
+						<includeGroupIds>com.newrelic.agent.java</includeGroupIds>
+						<includeArtifactIds>newrelic-java</includeArtifactIds>
+						<!-- you can optionally exclude files -->
+						<!-- <excludes>**/newrelic.yml</excludes> -->
+						<overWriteReleases>false</overWriteReleases>
+						<overWriteSnapshots>false</overWriteSnapshots>
+						<overWriteIfNewer>true</overWriteIfNewer>
+						<outputDirectory>${project.build.directory}</outputDirectory>
+					</configuration>
+					</execution>
+				</executions>
+				</plugin>
+	
+
+			<plugin>
+				<groupId>io.sentry</groupId>
+				<artifactId>sentry-maven-plugin</artifactId>
+				<version>0.0.8</version>
+				<extensions>true</extensions>
+				<configuration>
+				  <!-- for showing output of sentry-cli -->
+				  <debugSentryCli>true</debugSentryCli>
+		  
+				  <org>universidad-catolica-r6</org>
+		  
+				  <project>examen</project>
+		  
+				  <!-- in case you're self hosting, provide the URL here -->
+				  <!--<url>http://localhost:8000/</url>-->
+		  
+				  <!-- provide your auth token via SENTRY_AUTH_TOKEN environment variable -->
+				  <authToken>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</authToken>
+				</configuration>
+				<executions>
+				  <execution>
+					<goals>
+					  <!--
+					  Generates a JVM (Java, Kotlin, etc.) source bundle and uploads your source code to Sentry.
+					  This enables source context, allowing you to see your source
+					  code as part of your stack traces in Sentry.
+					  -->
+					  <goal>uploadSourceBundle</goal>
+					</goals>
+				  </execution>
+				</executions>
+			  </plugin>
+
+		</plugins>
+
+		
+
+	</build>
+
+</project>
